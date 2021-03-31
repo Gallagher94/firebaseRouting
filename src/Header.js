@@ -14,7 +14,7 @@ function Header() {
 
   return (
     <header>
-      <h2>The Grid</h2>
+      <h2>The JoRu</h2>
       {!!user && (
         <button className="ui secondary button logout" onClick={logoutUser}>
           LOGOUT
