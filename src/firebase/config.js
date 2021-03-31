@@ -14,3 +14,5 @@ console.log(firebase.app().options);
 
 export const firestore = firebase.firestore();
 export const storage = firebase.storage();
+export const timeStamp = firebase.firestore.FieldValue.serverTimestamp
+

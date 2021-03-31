@@ -6,11 +6,13 @@ import './pages/Signup';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Feed from './pages/Feed';
 import { UserProvider } from './firebase/UserProvider';
 import Profile from './pages/Profile';
 import ProfileRedirect from './router/ProfileRedirect';
 import PrivateRoute from './router/PrivateRoute';
 import AdminRoute from './router/AdminRoute';
+import UserRoute from './router/UserRoute';
 import Users from './pages/Users';
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
             <Switch>
               <ProfileRedirect exact path="/signup" component={Signup} />
               <PrivateRoute exact path="/profile/:id" component={Profile} />
+              <UserRoute exact path="/feed" component={Feed} />
               <ProfileRedirect exact path="/login" component={Login} />
               <AdminRoute exact path="/users" component={Users} />
               <Route exact path="/">
