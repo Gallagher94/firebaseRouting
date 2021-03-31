@@ -1,0 +1,18 @@
+  apiKey: "AIzaSyDBEiK6batyhEC2wxr43DUG2ltUd-H_VKo",
+    authDomain: "fir-linkedinrouter.firebaseapp.com",
+    projectId: "fir-linkedinrouter",
+    storageBucket: "fir-linkedinrouter.appspot.com",
+    messagingSenderId: "631866363919",
+    appId: "1:631866363919:web:1210519ccfb6267899537a",
+    measurementId: "G-Q7Y5GFSHV8"
+
+
+
+
+
+create rules for firestore 
+deploy rules using firebase cli 
+then run commands 
+ firebase init follow command 
+ vidoe - https://www.linkedin.com/learning/react-cloud-powered-apps-with-firebase/deploying-security-rules-for-cloud-firestore?resume=false&u=76816418
+ 
