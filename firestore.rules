@@ -4,5 +4,8 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, write, update: if request.auth.uid == userId || request.auth.token.admin == true
     }
+     match /posts/{postId} {
+      allow read, write: if true;
+    }
   }
 }
