@@ -1,6 +1,11 @@
 import { firestore, storage } from './config';
 
-export const createUserDocument = async (user) => {
+export const CheckUserExists = async (user) => {
+  if (!user) return;
+  return firestore.collection('users')
+.doc(user?.uid).get()
+.then(async docSnapshot => {
+    if (!docSnapshot.exists) {
   // get a reference to the Firestore document
   const docRef = firestore.doc(`/users/${user.uid}`);
 
@@ -19,8 +24,18 @@ export const createUserDocument = async (user) => {
   };
 
   // write to Cloud Firestore
+  await user.updateProfile({ displayName: user.displayNamefirstName });
+
   return docRef.set(userProfile);
+}
+});
 };
+
+// export const getUserDocument = async (userId) => firestore.collection('users').doci(userId).get().then(docSnapshot => {
+//   if (docSnapshot.exists) {
+
+//   }
+// });
 
 export const updateUserDocument = async (user) => {
   const docRef = firestore.doc(`/users/${user.uid}`);

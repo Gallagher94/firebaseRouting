@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import firebase from 'firebase/app';
 
+import { CheckUserExists } from './user';
+
 export const UserContext = React.createContext();
 
 export const UserProvider = (props) => {
@@ -12,6 +14,10 @@ export const UserProvider = (props) => {
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
+      console.log('change', {user})
+
+      await CheckUserExists(user);
+    
       let isAdmin = false;
 
       if (user) {

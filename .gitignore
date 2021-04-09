@@ -63,5 +63,5 @@ node_modules/
 .yarn-integrity
 
 # build dir
-/build
+build/
 

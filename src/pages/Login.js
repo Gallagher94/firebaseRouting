@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { login } from '../firebase/auth';
 import { Link } from 'react-router-dom';
+import firebase from 'firebase/app';
+ 
+
+import {auth} from '../firebase/config'
 
 function Login(props) {
   const { register, handleSubmit, reset } = useForm();
@@ -32,6 +36,33 @@ function Login(props) {
       setLoading(false);
     }
   };
+
+  const google = () => {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    provider.addScope('profile');
+    provider.addScope('email');
+    auth.signInWithPopup(provider).then(async function(result) {
+        // This gives you a Google Access Token.
+        const token = result.credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+
+        console.log({user})
+
+  // await user.updateProfile({ displayName: `${firstName} ${lastName}` });
+  // await createUserDocument(user);
+       }).catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        console.log({error})
+        // ...
+      });
+};
 
   const formClassName = `ui form ${isLoading ? 'loading' : ''}`;
 
@@ -70,6 +101,8 @@ function Login(props) {
               <Link to="/signup">Sign Up</Link>
             </div>
           </form>
+          <button onClick={google}>Google</button>
+
         </div>
       </div>
     </div>
