@@ -22,10 +22,31 @@ export const UserProvider = (props) => {
 
       if (user) {
         const token = await user.getIdTokenResult();
-        isAdmin = token.claims.admin;
-      }
+        if (token.claims?.admin) {
+        isAdmin = true;
+        setSession({ loading: false, user, isAdmin });
+        } else {
+          const idToken = await firebase.auth().currentUser.getIdToken();
 
+          // not done the claims yet
+          await fetch(`https://us-central1-fir-linkedinrouter.cloudfunctions.net/expressApp/register`,
+          {method: 'GET',
+          credentials: 'include',
+          mode: 'cors',
+      headers: {
+          Authorization: `Bearer ${idToken}`
+      }}).then(async result => {
+          if (result.status !== 200) {
+              throw new Error('this failed')
+          }
+              await firebase.auth().currentUser.getIdToken(true);
+              await firebase.auth().currentUser.sendEmailVerification();
+              setSession({ loading: false, user, isAdmin: true });
+      });
+        }
+      } else {
       setSession({ loading: false, user, isAdmin });
+      }
     });
 
     return () => unsubscribe();

@@ -2,9 +2,7 @@ import React from 'react';
 import Header from './Header';
 import './App.css';
 import './firebase/config';
-import './pages/Signup';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
-import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Feed from './pages/Feed';
 import { UserProvider } from './firebase/UserProvider';
@@ -23,7 +21,6 @@ function App() {
         <div className="app">
           <div className="ui grid container">
             <Switch>
-              <ProfileRedirect exact path="/signup" component={Signup} />
               <PrivateRoute exact path="/profile/:id" component={Profile} />
               <UserRoute exact path="/feed" component={Feed} />
               <ProfileRedirect exact path="/login" component={Login} />
