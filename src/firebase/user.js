@@ -5,6 +5,7 @@ export const CheckUserExists = async (user) => {
   return firestore.collection('users')
 .doc(user?.uid).get()
 .then(async docSnapshot => {
+  console.log({docSnapshot})
     if (!docSnapshot.exists) {
   // get a reference to the Firestore document
   const docRef = firestore.doc(`/users/${user.uid}`);
@@ -24,9 +25,10 @@ export const CheckUserExists = async (user) => {
   };
 
   // write to Cloud Firestore
+  const databaseUser = docRef.set(userProfile);
   await user.updateProfile({ displayName: user.displayNamefirstName });
 
-  return docRef.set(userProfile);
+  return databaseUser;
 }
 });
 };

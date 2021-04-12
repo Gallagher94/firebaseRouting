@@ -10,16 +10,22 @@ const ProfileRedirect = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        !user ? (
+        user ? loading ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{
-              pathname: loading ? '/waiting' : isAdmin ? '/users' : `/profile/${user.uid}`,
+              pathname: isAdmin ? '/users' : `/profile/${user.uid}`,
               state: { from: props.location },
             }}
           />
-        )
+        ) :           
+        <Redirect
+        to={{
+          pathname: '/login',
+          state: { from: props.location },
+        }}
+      />
       }
     />
   );

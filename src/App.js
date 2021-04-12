@@ -11,7 +11,11 @@ import ProfileRedirect from './router/ProfileRedirect';
 import PrivateRoute from './router/PrivateRoute';
 import AdminRoute from './router/AdminRoute';
 import UserRoute from './router/UserRoute';
+import WaitingRedirect from './router/WaitingRoute';
+
 import Users from './pages/Users';
+import WaitingRoom from './pages/WaitingRoom';
+import Verify from './pages/Verify';
 
 function App() {
   return (
@@ -28,6 +32,8 @@ function App() {
               <Route exact path="/">
                 <Redirect to="/login" />
               </Route>
+              <WaitingRedirect exact path="/waiting" component={WaitingRoom} />
+              <Verify exact path="/verify" />
             </Switch>
           </div>
         </div>
