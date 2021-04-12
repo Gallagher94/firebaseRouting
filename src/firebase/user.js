@@ -24,9 +24,10 @@ export const CheckUserExists = async (user) => {
   };
 
   // write to Cloud Firestore
+  const returnUser = docRef.set(userProfile);
   await user.updateProfile({ displayName: user.displayNamefirstName });
 
-  return docRef.set(userProfile);
+  return returnUser;
 }
 });
 };

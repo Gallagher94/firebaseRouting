@@ -24,9 +24,10 @@ export const UserProvider = (props) => {
         const token = await user.getIdTokenResult();
         if (token.claims?.admin) {
         isAdmin = true;
-        setSession({ loading: false, user, isAdmin });
+        setSession({ loading: false, completeSignUp: true, done: true, user, isAdmin });
         } else {
           const idToken = await firebase.auth().currentUser.getIdToken();
+          setSession({loading: false, completeSignUp: false, user, isAdmin:false})
 
           // not done the claims yet
           await fetch(`https://us-central1-fir-linkedinrouter.cloudfunctions.net/expressApp/register`,
@@ -39,13 +40,11 @@ export const UserProvider = (props) => {
           if (result.status !== 200) {
               throw new Error('this failed')
           }
-              await firebase.auth().currentUser.getIdToken(true);
-              await firebase.auth().currentUser.sendEmailVerification();
-              setSession({ loading: false, user, isAdmin: true });
+              setSession({ loading: false, completeSignUp: true, done: false, user, isAdmin: true });
       });
         }
       } else {
-      setSession({ loading: false, user, isAdmin });
+      setSession({ loading: false, user: null, isAdmin });
       }
     });
 

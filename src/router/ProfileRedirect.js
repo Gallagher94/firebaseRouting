@@ -4,14 +4,14 @@ import { useSession } from '../firebase/UserProvider';
 
 
 const ProfileRedirect = ({ component: Component, ...rest }) => {
-  const { user, isAdmin } = useSession();
+  const { user, isAdmin, done } = useSession();
 
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        !user ? (
+        !user || !done ? (
           <Component {...props} />
         ) : (
           <Redirect
